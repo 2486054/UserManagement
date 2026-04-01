@@ -24,11 +24,22 @@ public class JwtUtils {
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
-    public String generateToken(String email, String role) {
+//    public String generateToken(String email, String role) {
+//        return Jwts.builder()
+//                .setSubject(email)
+//                .claim("role", role)
+//                .claim("type", "ACCESS")
+//                .setIssuedAt(new Date())
+//                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+//                .signWith(getSigningKey())
+//                .compact();
+//    }
+    public String generateToken(String email, String role, Long userId) {
         return Jwts.builder()
                 .setSubject(email)
                 .claim("role", role)
                 .claim("type", "ACCESS")
+                .claim("userId", userId)  // ADD THIS LINE
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey())
