@@ -68,7 +68,7 @@ public class AuthService {
         if (encoder.matches(loginDto.getPassword(), user.getPassword())) {
 
             String accessToken = jwtUtils.generateToken(
-                    user.getEmail(), user.getRole().name());
+                    user.getEmail(), user.getRole().name(), user.getUserId());
 
             String refreshTokenStr = jwtUtils.generateRefreshToken(user.getEmail());
 
@@ -109,7 +109,7 @@ public class AuthService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
         String newAccessToken = jwtUtils.generateToken(
-                user.getEmail(), user.getRole().name());
+                user.getEmail(), user.getRole().name(), user.getUserId());
 
         return new AuthResponse(newAccessToken, token,
                 user.getRole(), "Token refreshed successfully!");
